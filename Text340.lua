@@ -32,18 +32,14 @@ local function doEscapeOrEnter()
     if escape and escape:IsA("BasePart") then
         fireTouch(escape)
     else
+        -- 🔥 AHORA ACTIVA LOS 3 ENTERS
         local posibles = {"Enter1", "Enter2", "Enter3"}
-        local encontrados = {}
 
         for _, name in ipairs(posibles) do
             local part = workspace:FindFirstChild(name)
             if part and part:IsA("BasePart") then
-                table.insert(encontrados, part)
+                fireTouch(part)
             end
-        end
-
-        if #encontrados > 0 then
-            fireTouch(encontrados[math.random(1, #encontrados)])
         end
     end
 end
