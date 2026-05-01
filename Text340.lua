@@ -1,8 +1,14 @@
+-- 🔒 ANTI DUPLICADO (CLAVE PARA AUTO EXECUTE)
+if getgenv().AutoExecLoaded then return end
+getgenv().AutoExecLoaded = true
+
 repeat task.wait() until game:IsLoaded()
 
+-- 🔁 RE-EJECUTAR EN TELEPORT
 if queue_on_teleport then
     queue_on_teleport('loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text340/main/Text340.lua"))()')
 end
+
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local TeleportService = game:GetService("TeleportService")
@@ -37,8 +43,7 @@ local function doEscapeOrEnter()
         end
 
         if #encontrados > 0 then
-            local elegido = encontrados[math.random(1, #encontrados)]
-            fireTouch(elegido)
+            fireTouch(encontrados[math.random(1, #encontrados)])
         end
     end
 end
@@ -48,13 +53,8 @@ local function fireLobbyRemotes()
     local tp1 = ReplicatedStorage:FindFirstChild("TPToLobby")
     local tp2 = ReplicatedStorage:FindFirstChild("TPGuardToLobby")
 
-    if tp1 and tp1:IsA("RemoteEvent") then
-        tp1:FireServer()
-    end
-
-    if tp2 and tp2:IsA("RemoteEvent") then
-        tp2:FireServer()
-    end
+    if tp1 then tp1:FireServer() end
+    if tp2 then tp2:FireServer() end
 end
 
 -- ========= REJOIN =========
@@ -63,7 +63,7 @@ local function rejoin()
     TeleportService:Teleport(game.PlaceId, player)
 end
 
--- ========= DETECTOR DE ESCAPES =========
+-- ========= DETECTOR =========
 local function detectEscapes()
     local leaderstats = player:WaitForChild("leaderstats", 10)
     if not leaderstats then return end
@@ -76,10 +76,7 @@ local function detectEscapes()
     escapeStat:GetPropertyChangedSignal("Value"):Connect(function()
         if escapeStat.Value > lastValue then
             lastValue = escapeStat.Value
-
             fireLobbyRemotes()
-
-            -- 🔥 activar rejoin después de escapar
             task.spawn(rejoin)
         end
     end)
