@@ -1,18 +1,7 @@
 repeat task.wait() until game:IsLoaded()
 
 if queue_on_teleport then
-    queue_on_teleport([[
-        local req = syn and syn.request or http_request or request
-        if req then
-            local res = req({
-                Url = "https://raw.githubusercontent.com/davidsebas348-hub/Text340/main/Text340.lua",
-                Method = "GET"
-            })
-            if res and res.Body then
-                loadstring(res.Body)()
-            end
-        end
-    ]])
+    queue_on_teleport('loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text340/main/Text340.lua"))()')
 end
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
