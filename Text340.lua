@@ -1,9 +1,9 @@
 if queue_on_teleport then
     queue_on_teleport([[
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text340/refs/heads/main/Text340"))()
+        loadstring(syn and syn.request and syn.request({Url="https://raw.githubusercontent.com/davidsebas348-hub/Text340/refs/heads/main/Text340", Method="GET"}).Body 
+        or http_request({Url="https://raw.githubusercontent.com/davidsebas348-hub/Text340/refs/heads/main/Text340", Method="GET"}).Body)()
     ]])
 end
-
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local TeleportService = game:GetService("TeleportService")
