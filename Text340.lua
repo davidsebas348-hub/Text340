@@ -1,3 +1,4 @@
+repeat task.wait() until game:IsLoaded()
 if queue_on_teleport then
     queue_on_teleport([[
         loadstring(syn and syn.request and syn.request({Url="https://raw.githubusercontent.com/davidsebas348-hub/Text340/refs/heads/main/Text340", Method="GET"}).Body 
